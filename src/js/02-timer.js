@@ -35,10 +35,16 @@ flatpickr(input, {
 
 function startTimer(e) {
   if (isActive) {
+      
     return
+   
   }
   
   isActive = true;
+  if (isActive) {
+    startBtn.disabled = true;
+    input.disabled = true;
+  }
   const dateFeature = new Date(input.value).getTime();
   
 

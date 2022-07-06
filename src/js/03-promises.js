@@ -1,8 +1,9 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const form = document.querySelector('.form');
 const btnEl = document.querySelector('button');
-btnEl.addEventListener('click', invokePromise)
-form.addEventListener('submit' ,preventDefault)
+
+form.addEventListener('submit', preventDefault)
+form.addEventListener('submit' ,invokePromise)
 
 const delayEl = form.elements.delay;
 const stepEl = form.elements.step;
@@ -11,6 +12,7 @@ const amountEl = form.elements.amount;
 
 function preventDefault(e) {
   e.preventDefault()
+
 
 }
 
@@ -29,7 +31,7 @@ resolve( {position, delay})
   } else {
    reject({position, delay})
   }
-       }, +delay);
+       }, delay);
 
 
 })
@@ -43,27 +45,27 @@ function invokePromise() {
    
      
   setTimeout(() => {
-    createPromise(i, delayEl.value).then(({ position, delay }) => {
-        const queuePosTime = 1 +position;
-      const timeCounter = (+delay + i * +stepEl.value)
+    createPromise(Number(i), Number(delayEl.value)).then(({ position, delay }) => {
+        const queuePosTime = 1 + position;
+      const timeCounter = (delay + i * stepEl.value)
         Notify.success(`✅ Fulfilled promise ${queuePosTime} in ${timeCounter}ms`)
     console.log(`Fulfilled promise ${queuePosTime} in ${timeCounter}ms`);
   }).catch(({ position, delay }) => {
-    const queuePosTime = 1 + +position;
-    const timeCounter = (+delay + i * +stepEl.value)
+    const queuePosTime = 1 + position;
+    const timeCounter = (delay + i * stepEl.value)
      Notify.failure(` Rejected promise ${queuePosTime} in ${timeCounter}ms`)
     console.log(`❌ Rejected promise ${queuePosTime} in ${timeCounter}ms`);
   }) 
     btnNumberCounter += 1;
 
-    if (btnNumberCounter == amountEl.value) {
+    if (btnNumberCounter == amountEl.value ) {
     
        btnEl.disabled = false;
 
       
     }    
 
-  }, i * +stepEl.value);
+  }, i * stepEl.value);
       
       
 }
